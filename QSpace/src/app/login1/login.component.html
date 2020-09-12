@@ -1,0 +1,71 @@
+<div class="qspace-login" *ngIf="loginapp">
+    <div class="center">
+        <img alt="logo" src="images/esign/png/qspace.png" />
+        <div class="log-out" *ngIf="!showloginpage">
+            <p>
+                QSpace is optimized for Google Chrome browser. Please use Chrome
+                browser. <br />
+            </p>
+        </div>
+    </div>
+
+    <div class="center login-form" *ngIf="showloginpage">
+        <h4>Log in</h4>
+        <form name="loginform" id="loginform" method="post" autocomplete="off" action="./login1" novalidate>
+            <div class="field mb25">
+                <span class="login-sprite login-user"></span> 
+                <input type="text" class="form-control" name="j_username"
+                    [(ngModel)]="j_username" autocomplete="off" ng-cut="$event.preventDefault()"
+                    ng-copy="$event.preventDefault()" ng-paste="$event.preventDefault()" placeholder="Username"
+                    focus-on="j_username" required>
+                <div *ngIf="loginform.$submitted|| loginform.j_username.$touched ">
+                    <div *ngIf="loginform.j_username.$error.required"
+                        style="color: red; font-size: 11px; margin: 0px 0 0 -173px">Enter
+                        username</div>
+                </div>
+            </div>
+            <div class="field">
+                <span class="login-sprite login-password"></span> 
+                <input class="form-control" type="text"
+                    id="loginPassword" ng-paste="$event.preventDefault()" ng-cut="$event.preventDefault()"
+                    ng-copy="$event.preventDefault()" ng-paste="$event.preventDefault()" [(ngModel)]="j_password"
+                    name="j_password" autocomplete="off" placeholder="Password" required>
+                <div *ngIf="loginform.$submitted|| loginform.j_password.$touched ">
+                    <div *ngIf="loginform.j_password.$error.required"
+                        style="color: red; font-size: 11px; margin: 0px 0 0 -173px">Enter
+                        password</div>
+                </div>
+            </div>
+
+
+            <button (click)="loginform.$valid && submitform(j_username,j_password)"
+                ng-keypress="callsubmitfunction($event)" class="btn login-btn" type="submit">Log in</button>
+        </form>
+
+        <p>
+            New user or Additional role?<a (click)="asksignup('');username=''"
+                class="primary-link ">&nbsp;&nbsp;&nbsp;Request access</a>
+        </p>
+    </div>
+</div>
+<div *ngIf="signup && showloginpage">
+    <div ng-include="'sign-up.html'"></div>
+</div>
+
+<div *ngIf="logout==true && showloginpage">
+    <div class="qspace-login qspace-logout">
+        <div class="center">
+            <img alt="logo" src="images/esign/png/qspace.png" />
+            <div class="log-out">
+                <p>
+                    Thank you for using Qspace <br /> You have successfully logged out
+                    of the system.
+                </p>
+                <div>
+                    <a class="primary-link" ui-sref="login" (click)="login()">Log
+                        in</a> to continue
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
